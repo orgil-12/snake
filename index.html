@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=], initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .board{
+            margin: 30 auto;
+            background-color: rgb(12, 152, 12);
+            position: relative;
+        }
+        .snake{
+            position: absolute;
+            background-color: rgba(13, 39, 154, 0.834);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button onclick="gameStart();">Start</button>
+        <button onclick="gamePause();">Pause</button>
+        <button onclick="gameRestart();">Restart</button>
+    </div>
+
+    <section class="board" id="board">
+        <!-- GENERATED -->
+    </section>
+
+    <div>
+        <button onclick="changeDirection('up');">Up</button>
+        <button onclick="changeDirection('down');">Down</button>
+        <button onclick="changeDirection('left');">Left</button>
+        <button onclick="changeDirection('right');">Right</button>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
