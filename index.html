@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=], initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
         .board{
             margin: 30 auto;
-            background-color: rgb(12, 152, 12);
+            background-image: url(square-svgrepo-com.svg);
+            background-size: 30px;
+            background-repeat: calc(20);
             position: relative;
+            display: grid;
         }
         .snake{
             position: absolute;
-            background-color: rgba(13, 39, 154, 0.834);
+            background-color: rgba(13, 39, 154);
             border-radius: 10px;
+        }
+        .food{
+            position: absolute;
         }
     </style>
 </head>
@@ -23,9 +29,9 @@
         <button onclick="gamePause();">Pause</button>
         <button onclick="gameRestart();">Restart</button>
     </div>
+    <div>Score:<p id="eatCounter"></p></div>
 
     <section class="board" id="board">
-        <!-- GENERATED -->
     </section>
 
     <div>

@@ -1,18 +1,19 @@
 let headTop = 5;
 let headLeft = 5;
+let foodCounter = 1;
 let direction = "right";
 let intervalId = null;
+let foodTop = Math.ceil(Math.random() * 15) - 1;
+let foodLeft = Math.ceil(Math.random() * 15) - 1;
 
 let tails = [
-  { x: 2, y: 5 },
-  { x: 3, y: 5 },
   { x: 4, y: 5 },
 ];
 
 const config = {
-  size: 20,
-  width: 30,
-  height: 30,
+  size: 30,
+  width: 15,
+  height: 15
 };
 
 const boardEl = document.getElementById("board");
@@ -65,8 +66,9 @@ function changeDirection(newDirection) {
 
 function gameStart() {
   if (!intervalId) {
-    intervalId = setInterval(gameLoop, 300);
+    intervalId = setInterval(gameLoop, 150);
   }
+
   render();
 }
 
@@ -76,15 +78,16 @@ function gamePause() {
 }
 
 function gameRestart() {
+  foodCounter = 1;
   headTop = 5;
   headLeft = 5;
   direction = "right";
 
   tails = [
-    { x: 2, y: 5 },
-    { x: 3, y: 5 },
     { x: 4, y: 5 },
   ];
+  foodTop = Math.ceil(Math.random() * 15) - 1;
+  foodLeft = Math.ceil(Math.random() * 15) - 1;
   gameStart();
   gamePause();
 }
@@ -140,4 +143,28 @@ function render() {
   }
 
   boardEl.innerHTML = tailsHtml;
+  eatFood();
+  eatCounter.innerHTML = foodCounter;
+}
+
+function eatFood() {
+  const eatCounter = document.getElementById("eatCounter")
+  let foodHtml = "";
+
+  foodHtml = `<img class ="food" src="apple.svg" style="width: ${1 * config.size}px; height: ${
+    1 * config.size
+  }px; top: ${foodTop * config.size}px; left: ${
+    foodLeft * config.size
+  }px"></div>`;
+
+  boardEl.innerHTML += foodHtml;
+
+  console.log({ foodLeft, foodTop });
+
+  if (headLeft === foodLeft && headTop === foodTop) {
+    tails.push({ x: headLeft, y: headTop });
+    foodTop = Math.ceil(Math.random() * 15) - 1;
+    foodLeft = Math.ceil(Math.random() * 15) - 1;
+    foodCounter++;
+  }  
 }
