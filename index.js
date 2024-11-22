@@ -77,12 +77,14 @@ function gameRestart() {
   headTop = 5;
   headLeft = 5;
   direction = "right";
+  nextDirection = "right";
 
   tails = [
     { x: 4, y: 5 },
   ];
   foodTop = Math.ceil(Math.random() * 15) - 1;
   foodLeft = Math.ceil(Math.random() * 15) - 1;
+  render();
   gameStart();
   gamePause();
 }
