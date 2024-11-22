@@ -2,6 +2,7 @@ let headTop = 5;
 let headLeft = 5;
 let foodCounter = 1;
 let direction = "right";
+let nextDirection = "right";
 let intervalId = null;
 let foodTop = Math.ceil(Math.random() * 15) - 1;
 let foodLeft = Math.ceil(Math.random() * 15) - 1;
@@ -25,7 +26,6 @@ function goUp() {
   if (headTop < 0) {
     headTop = config.height - 1;
   }
-  render();
 }
 
 function goDown() {
@@ -33,7 +33,6 @@ function goDown() {
   if (headTop === config.height) {
     headTop = 0;
   }
-  render();
 }
 
 function goRight() {
@@ -41,7 +40,6 @@ function goRight() {
   if (headLeft === config.width) {
     headLeft = 0;
   }
-  render();
 }
 
 function goLeft() {
@@ -49,17 +47,16 @@ function goLeft() {
   if (headLeft < 0) {
     headLeft = config.width - 1;
   }
-  render();
 }
 
 function changeDirection(newDirection) {
   if (direction === "up" || direction === "down") {
     if (newDirection === "right" || newDirection === "left") {
-      direction = newDirection;
+      nextDirection = newDirection;
     }
   } else if (direction === "left" || direction === "right") {
     if (newDirection === "up" || newDirection === "down") {
-      direction = newDirection;
+      nextDirection = newDirection;
     }
   }
 }
@@ -68,8 +65,6 @@ function gameStart() {
   if (!intervalId) {
     intervalId = setInterval(gameLoop, 150);
   }
-
-  render();
 }
 
 function gamePause() {
@@ -93,9 +88,8 @@ function gameRestart() {
 }
 
 function gameLoop() {
-  tails.push({ x: headLeft, y: headTop });
-  tails.shift();
-  switch (direction) {
+  
+  switch (nextDirection) {
     case "up":
       goUp();
       break;
@@ -109,6 +103,20 @@ function gameLoop() {
       goLeft();
       break;
   }
+
+  tails.push({ x: headLeft, y: headTop });
+  tails.shift();
+
+  for(let i = 0; i < tails.length - 1; i++){
+    if( headLeft === tails[i].x && headTop === tails[i].y){
+      alert("Game over");
+      gameRestart();
+      gamePause();
+    }
+  }
+
+  direction = nextDirection;
+  render();
 }
 
 function listenKeys(event) {
